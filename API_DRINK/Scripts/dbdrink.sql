@@ -24,7 +24,7 @@ create table tbBebida (
     StrDrinkThumb varchar(100)
 );
 
-insert into tbBebida values(1, 1, 1, "Água com limão", "misture o limão na água", "www.google.com"); 
+insert into tbBebida values(2, 1, 1, "Chá de limão", "misture o limão na água e esquente", "www.google.com"); 
 
 alter table tbBebida add constraint fk_idcat foreign key (IdCat) references tbCategory (IdCat);
 

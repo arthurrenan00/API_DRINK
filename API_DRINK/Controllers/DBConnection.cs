@@ -41,6 +41,8 @@ namespace API_DRINK.Controllers
             //propriedade especificadas pelo ConnectionString
             conexao.Open();
 
+
+
         }
     }
 }
