@@ -16,7 +16,7 @@ namespace API_DRINK.Controllers
         //servidor de banco de dados
         static string host = "localhost";
         //nome do banco de dados
-        static string database = "db_drink";
+        static string database = "db_bebida";
         //usuário de conexão do banco de dados
         static string userDB = "root";
         //senha de conexão do banco de dados
