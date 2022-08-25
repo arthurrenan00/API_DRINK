@@ -7,6 +7,22 @@ namespace API_DRINK.Models
 {
     public class Bebida
     {
+        //AQUI abaixo adicionado pelo GM 25/08
+        public Bebida()
+        {
+
+        }
+
+        public Bebida(int idDrink, int idCat, int idIngredient, string strDrink, string strInstructions, string strDrinkThumb)
+        {
+            IdDrink = idDrink;
+            IdCat = idCat;
+            IdIngredient = idIngredient;
+            StrDrink = strDrink;
+            StrInstructions = strInstructions;
+            StrDrinkThumb = strDrinkThumb;
+        }
+        //AQUI acima adicionado pelo GM 25/08
 
         public int IdDrink { get; set; }
 

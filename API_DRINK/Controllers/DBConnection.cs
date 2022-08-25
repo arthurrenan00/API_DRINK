@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MySql.Data.MySqlClient;
+using API_DRINK.Models;
 
 namespace API_DRINK.Controllers
 {
@@ -40,9 +41,36 @@ namespace API_DRINK.Controllers
             //Abre uma conexão de banco de dados com as configurações de
             //propriedade especificadas pelo ConnectionString
             conexao.Open();
+        }
 
+        //AQUI abaixo foi adicionado pelo GM (25/08)
+        public List<Bebida> MostraTodos()
+        {
+                MySqlDataReader reader;
 
+                sql_query = "Select*from vm_Bebida";
 
+                MySqlCommand cmd = new MySqlCommand(sql_query, conexao);
+
+                reader = cmd.ExecuteReader();
+
+                List < Bebida > registro = new List<Bebida>();
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    registro.Add(new Bebida(int.Parse(reader["IdDrink"].ToString()), int.Parse(reader["IdCat"].ToString()), int.Parse(reader["IdIngredient"].ToString()), reader["StrDrink"].ToString(), reader["StrInstructions"].ToString(), reader["StrDrinkThumb"].ToString()));
+                }
+            }
+            return registro;
+
+                 
+        }
+
+        public void Fechar()
+        {
+            conexao.Close();
         }
     }
 }
