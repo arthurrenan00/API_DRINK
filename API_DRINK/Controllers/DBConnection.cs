@@ -43,12 +43,12 @@ namespace API_DRINK.Controllers
             conexao.Open();
         }
 
-        //AQUI abaixo foi adicionado pelo GM (25/08)
+        //AQUI abaixo foi adicionado pelo Guilherme Matheus (25/08)
         public List<Bebida> MostraTodos()
         {
                 MySqlDataReader reader;
 
-                sql_query = "Select*from vm_Bebida";
+                sql_query = "Select * from vm_Bebida;";
 
                 MySqlCommand cmd = new MySqlCommand(sql_query, conexao);
 

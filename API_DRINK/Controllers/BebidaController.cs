@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -23,20 +24,29 @@ namespace API_DRINK.Controllers
             return new string[] { "value1", "value2" };
         }
 
-        /*
+
 
         // GET: api/Bebida/5
-        public string Get(int id)
+        [HttpGet]
+        [ActionName("getBebida")]
+        public Bebida Get(int id)
         {
-            return "value";
+            var bebida = bebidas.FirstOrDefault((p) => p.IdDrink == id);
+            if (bebida == null)
+            {
+                var resp = new HttpResponseMessage(HttpStatusCode.NotFound);
+                throw new HttpResponseException(resp);
+            }
+            return bebida;  
         }
-        */
+
+
 
         //GET: api/Bebida/getAll
 
         [HttpGet]
         [ActionName("getAll")]
-        public IEnumerable GetAllBebidas()
+        public IEnumerable<Bebida> GetAllBebidas()
         {
             try
             {
@@ -53,20 +63,57 @@ namespace API_DRINK.Controllers
         }
 
         //Modifiquei acima GM 2508
-        
+
         // POST: api/Bebida
-        public void Post([FromBody]string value)
+        [HttpPost]
+        [ActionName("addItens")]
+        public HttpResponseMessage Post([FromBody] List<Bebida> itens)
         {
+            if (itens == null)
+            {
+                return new HttpResponseMessage(HttpStatusCode.NotModified);
+            }
+            bebidas.AddRange(itens);
+            var response = new HttpResponseMessage(HttpStatusCode.Created);
+            return response;
         }
 
-        // PUT: api/Bebida/5
-        public void Put(int id, [FromBody]string value)
+
+        // PUT: api/Livro/5
+        [HttpPut]
+        [ActionName("updateItem")]
+        public HttpResponseMessage Put(int id, [FromBody] Bebida item)
         {
+
+            if (item == null)
+            {
+                return new HttpResponseMessage(HttpStatusCode.NotModified);
+            }
+
+            int index = bebidas.IndexOf((Bebida)bebidas.Where((p) => p.IdDrink == id).FirstOrDefault());
+            bebidas[index] = item;
+
+            return new HttpResponseMessage(HttpStatusCode.Accepted);
         }
 
-        // DELETE: api/Bebida/5
-        public void Delete(int id)
+        //[HttpGet]
+        //[ActionName("getByCategoria")]
+        //public IEnumerable GetBebidasByCategory(string categoria)
+        //{
+        //    return bebidas.Where(
+        //        (p) => string.Equals(p.Ca, categoria,
+        //            StringComparison.OrdinalIgnoreCase));
+        //}
+
+
+        [HttpDelete]
+        [ActionName("delete")]
+        public HttpResponseMessage Delete(int id)
         {
+            Bebida beb = (Bebida)bebidas.Where((p) => p.IdDrink == id);
+            int index = bebidas.IndexOf(beb);
+            bebidas.RemoveAt(index);
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
     }
 }
