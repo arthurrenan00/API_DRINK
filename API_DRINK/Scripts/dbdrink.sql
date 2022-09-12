@@ -7,14 +7,17 @@ create table tbCategory(
     StrCategory varchar(50) not null
 );
 
-insert into tbIngredient(StrIngredient) values ("Limão");
+
+
+
 
 create table tbIngredient(
 	IdIngredient int primary key auto_increment,
     StrIngredient varchar(50) not null
 );
 
-
+insert into tbCategory (StrCategory) values ("Quente");
+insert into tbIngredient (StrIngredient) values ("Água, Limão");
 create table tbBebida (
 	IdDrink int primary key,
     IdCat int,
