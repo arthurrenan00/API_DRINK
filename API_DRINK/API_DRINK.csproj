@@ -166,6 +166,7 @@
     <Compile Include="Models\Bebida.cs" />
     <Compile Include="Models\Categoria.cs" />
     <Compile Include="Models\Ingrediente.cs" />
+    <Compile Include="Models\IProductRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
