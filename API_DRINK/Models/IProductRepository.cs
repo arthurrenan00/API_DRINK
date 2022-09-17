@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace API_DRINK.Models
 {
-    public class IProductRepository
+    internal interface IProductRepository
     {
         IEnumerable<Bebida> GetAll();
         Bebida Get(int id);

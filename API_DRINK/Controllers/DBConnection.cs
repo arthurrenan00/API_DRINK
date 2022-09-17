@@ -43,7 +43,7 @@ namespace API_DRINK.Controllers
             conexao.Open();
         }
 
-        //AQUI abaixo foi adicionado pelo Guilherme Matheus (25/08)
+      
         public List<Bebida> MostraTodos()
         {
                 MySqlDataReader reader;
@@ -67,6 +67,37 @@ namespace API_DRINK.Controllers
 
                  
         }
+
+        public void AddBebida(Bebida bebida)
+        {
+            MySqlCommand cmd = new MySqlCommand("insert into tbBebida values (@IdDrink, @IdCat, @IdIngredient, @StrDrink. @StrInstructions, @StrDrinkThumb)", conexao);
+            cmd.Parameters.AddWithValue("@IdDrink", bebida.IdDrink);
+            cmd.Parameters.AddWithValue("IdCat", bebida.IdCat);
+            cmd.Parameters.AddWithValue("@IdIngredient", bebida.IdIngredient);
+            cmd.Parameters.AddWithValue("@StrDrink", bebida.StrInstructions);
+            cmd.Parameters.AddWithValue("@StrInstructions", bebida.StrInstructions);
+            cmd.Parameters.AddWithValue("@StrDrinkThumb", bebida.StrDrinkThumb);
+            cmd.ExecuteNonQuery();
+        }
+
+        public void UpdateBebida(Bebida bebida)
+        {
+            MySqlCommand cmd = new MySqlCommand("update tbBebida set StrDrink=@StrDrink, StrInstructions=@StrInstructions, StrDrinkThumb=@StrDrinkThumb where IdDrink=@IdDrink)", conexao);
+            cmd.Parameters.AddWithValue("@StrDrink", bebida.StrInstructions);
+            cmd.Parameters.AddWithValue("@StrInstructions", bebida.StrInstructions);
+            cmd.Parameters.AddWithValue("@StrDrinkThumb", bebida.StrDrinkThumb);
+            cmd.Parameters.AddWithValue("@IdDrink", bebida.IdDrink);
+            cmd.ExecuteNonQuery();
+        }
+
+        public void DeleteBebida(int idDrink)
+        {
+            MySqlCommand cmd = new MySqlCommand("delete from tbBebida where IdDrink=@IdDrink", conexao);
+            cmd.Parameters.AddWithValue("@IdDrink", idDrink);
+            cmd.ExecuteNonQuery();
+        }
+        
+            
 
         public void Fechar()
         {

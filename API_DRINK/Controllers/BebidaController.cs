@@ -11,34 +11,26 @@ namespace API_DRINK.Controllers
 {
     public class BebidaController : ApiController
     {   //Modifiquei daqui para baixo GM 2508
-        List<Bebida> bebidas = new List<Bebida>(new Bebida[] {
-        new Bebida(1, 1, 1, "Água com limão", "Misture o limão com água", "https://gooutside.com.br/wp-content/uploads/sites/3/2020/03/agua-com-limao-realmente-limpa-o-organismo.jpg"),
-        new Bebida(2, 2, 2, "Chá com leite", "Misture leite em pó com chá", "https://www.iguaria.com/wp-content/uploads/2022/02/Iguaria-Receita-de-Leite-com-Cha-Preto.jpg")
-        }); 
-            
-            
-            
-        // GET: api/Bebida
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+        public List<Bebida> bebida = new List<Bebida>();
+        
+
+
 
 
 
         // GET: api/Bebida/5
-        [HttpGet]
-        [ActionName("getBebida")]
-        public Bebida Get(int id)
-        {
-            var bebida = bebidas.FirstOrDefault((p) => p.IdDrink == id);
-            if (bebida == null)
-            {
-                var resp = new HttpResponseMessage(HttpStatusCode.NotFound);
-                throw new HttpResponseException(resp);
-            }
-            return bebida;  
-        }
+        //[HttpGet]
+        //[ActionName("getBebida")]
+        //public Bebida Get(int id)
+        //{
+        //    var bebida = bebidas.FirstOrDefault((p) => p.IdDrink == id);
+        //    if (bebida == null)
+        //    {
+        //        var resp = new HttpResponseMessage(HttpStatusCode.NotFound);
+        //        throw new HttpResponseException(resp);
+        //    }
+        //    return bebida;  
+        //}
 
 
 
@@ -73,7 +65,16 @@ namespace API_DRINK.Controllers
             {
                 return new HttpResponseMessage(HttpStatusCode.NotModified);
             }
-            bebidas.AddRange(itens);
+            DBConnection db = new DBConnection();
+            foreach (var item in itens)
+            {
+                db.AddBebida(item);
+            }
+
+            //fecha banco
+            db.Fechar();
+
+            //retorna mensagem de sucesso
             var response = new HttpResponseMessage(HttpStatusCode.Created);
             return response;
         }
@@ -90,8 +91,9 @@ namespace API_DRINK.Controllers
                 return new HttpResponseMessage(HttpStatusCode.NotModified);
             }
 
-            int index = bebidas.IndexOf((Bebida)bebidas.Where((p) => p.IdDrink == id).FirstOrDefault());
-            bebidas[index] = item;
+            DBConnection db = new DBConnection();
+            db.UpdateBebida(item);
+            db.Fechar();
 
             return new HttpResponseMessage(HttpStatusCode.Accepted);
         }
@@ -107,12 +109,13 @@ namespace API_DRINK.Controllers
 
 
         [HttpDelete]
-        [ActionName("delete")]
-        public HttpResponseMessage Delete(int id)
+        [ActionName("deleteItem")]
+        public HttpResponseMessage Delete(int idDrink)
         {
-            Bebida beb = (Bebida)bebidas.Where((p) => p.IdDrink == id);
-            int index = bebidas.IndexOf(beb);
-            bebidas.RemoveAt(index);
+            DBConnection db = new DBConnection();
+            db.DeleteBebida(idDrink);
+            db.Fechar();
+
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
     }
