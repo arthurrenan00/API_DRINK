@@ -40,6 +40,10 @@ namespace API_DRINK.Controllers
         [ActionName("getAll")]
         public IEnumerable<Bebida> GetAllBebidas()
         {
+            DBConnection db = new DBConnection();
+            var itens = db.MostraTodos();
+            return itens;
+            /*
             try
             {
                 DBConnection db = new DBConnection();
@@ -52,6 +56,7 @@ namespace API_DRINK.Controllers
                 var resp = new HttpResponseMessage(HttpStatusCode.Unauthorized);
                 throw new HttpResponseException(resp);
             }
+            */
         }
 
         //Modifiquei acima GM 2508
@@ -59,24 +64,15 @@ namespace API_DRINK.Controllers
         // POST: api/Bebida
         [HttpPost]
         [ActionName("addItens")]
-        public HttpResponseMessage Post([FromBody] List<Bebida> itens)
+        public void Post([FromBody] Bebida itens)
         {
             if (itens == null)
             {
-                return new HttpResponseMessage(HttpStatusCode.NotModified);
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
             }
+
             DBConnection db = new DBConnection();
-            foreach (var item in itens)
-            {
-                db.AddBebida(item);
-            }
-
-            //fecha banco
-            db.Fechar();
-
-            //retorna mensagem de sucesso
-            var response = new HttpResponseMessage(HttpStatusCode.Created);
-            return response;
+            db.AddBebida(itens);
         }
 
 

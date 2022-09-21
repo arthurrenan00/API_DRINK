@@ -164,6 +164,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Bebida.cs" />
+    <Compile Include="Models\BebidaInsert.cs" />
     <Compile Include="Models\BebidaRepository.cs" />
     <Compile Include="Models\Categoria.cs" />
     <Compile Include="Models\Ingrediente.cs" />

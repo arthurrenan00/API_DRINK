@@ -40,3 +40,26 @@ inner join tbIngredient on tbIngredient.IdIngredient = tbBebida.IdIngredient;
 
 
 select * from vm_Bebida;
+
+drop procedure spInsertBebida;
+
+delimiter $$
+create procedure spInsertBebida(vStrIngredient varchar(50), vStrCategory varchar(50),
+vIdDrink int, vStrDrink varchar(50), vStrInstructions varchar(150), 
+vStrDrinkThumb varchar(100))
+begin
+		if not exists (select StrIngredient from tbIngredient where StrIngredient = vStrIngredient limit 1) then
+			insert into tbIngredient (StrIngredient) values (vStrIngredient);
+		END If;
+        
+        if not exists (select StrCategory from tbCategory where StrCategory = vStrCategory limit 1) then
+			insert into tbCategory (StrCategory) values (vStrCategory);
+		END If;
+    
+    insert into tbBebida values (vIdDrink, (select IdCat from tbCategory where StrCategory = vStrCategory limit 1),
+    (select IdIngredient from tbIngredient where StrIngredient = vStrIngredient limit 1), vStrDrink, vStrInstructions, vStrDrinkThumb);
+end;
+$$
+
+call spInsertBebida("Laranja", "Frio", 6, "Suco de laranja", "Esprema a laranja em um copo de 200ml de água", "www.google.com");
+        

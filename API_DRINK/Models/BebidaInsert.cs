@@ -5,20 +5,18 @@ using System.Web;
 
 namespace API_DRINK.Models
 {
-    public class Bebida
+    public class BebidaInsert
     {
-        //AQUI abaixo adicionado pelo GM 25/08
-        public Bebida()
+        public BebidaInsert()
         {
 
         }
 
-        public Bebida(int idDrink, string strDrink, string strCategory, string strIngredient ,string strInstructions, string strDrinkThumb)
+        public BebidaInsert(string strIngredient, string strCategory, int idDrink, string strDrink, string strInstructions, string strDrinkThumb)
         {
-            IdDrink = idDrink;
-            StrCategory = strCategory;
-            StrIngredient = strIngredient;
             StrInstructions = strInstructions;
+            StrCategory = strCategory;
+            IdDrink = idDrink;
             StrDrink = strDrink;
             StrInstructions = strInstructions;
             StrDrinkThumb = strDrinkThumb;
@@ -28,8 +26,6 @@ namespace API_DRINK.Models
         public int IdDrink { get; set; }
 
         public string StrCategory { get; set; }
-
-        public string StrIngredient { get; set; }
 
         //public int IdCat { get; set; }
 

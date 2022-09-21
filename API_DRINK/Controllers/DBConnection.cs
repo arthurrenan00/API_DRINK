@@ -21,7 +21,7 @@ namespace API_DRINK.Controllers
         //usuário de conexão do banco de dados
         static string userDB = "root";
         //senha de conexão do banco de dados
-        static string password = "12345678";
+        static string password = "guiguiba";
         //string de conexão ao BD
         public static string strConexao = "server=" + host +
                                             ";Database=" + database +
@@ -60,7 +60,7 @@ namespace API_DRINK.Controllers
             {
                 while (reader.Read())
                 {
-                    registro.Add(new Bebida(int.Parse(reader["IdDrink"].ToString()), int.Parse(reader["IdCat"].ToString()), int.Parse(reader["IdIngredient"].ToString()), reader["StrDrink"].ToString(), reader["StrInstructions"].ToString(), reader["StrDrinkThumb"].ToString()));
+                    registro.Add(new Bebida(int.Parse(reader["IdDrink"].ToString()), reader["StrDrink"].ToString(), reader["StrCategory"].ToString() ,reader["StrIngredient"].ToString(), reader["StrInstructions"].ToString(), reader["StrDrinkThumb"].ToString()));
                 }
             }
             return registro;
@@ -70,13 +70,13 @@ namespace API_DRINK.Controllers
 
         public void AddBebida(Bebida bebida)
         {
-            MySqlCommand cmd = new MySqlCommand("insert into tbBebida values (@IdDrink, @IdCat, @IdIngredient, @StrDrink. @StrInstructions, @StrDrinkThumb)", conexao);
-            cmd.Parameters.AddWithValue("@IdDrink", bebida.IdDrink);
-            cmd.Parameters.AddWithValue("IdCat", bebida.IdCat);
-            cmd.Parameters.AddWithValue("@IdIngredient", bebida.IdIngredient);
-            cmd.Parameters.AddWithValue("@StrDrink", bebida.StrInstructions);
-            cmd.Parameters.AddWithValue("@StrInstructions", bebida.StrInstructions);
-            cmd.Parameters.AddWithValue("@StrDrinkThumb", bebida.StrDrinkThumb);
+            MySqlCommand cmd = new MySqlCommand("call spInsertBebida(@vStrIngredient, @vStrCategory, @vIdDrink, @vStrDrink, @vStrInstructions, @vStrDrinkThumb);", conexao);
+            cmd.Parameters.AddWithValue("@vStrIngredient", bebida.StrIngredient); 
+            cmd.Parameters.AddWithValue("@vStrCategory", bebida.StrCategory);
+            cmd.Parameters.AddWithValue("@vIdDrink", bebida.IdDrink);
+            cmd.Parameters.AddWithValue("@vStrDrink", bebida.StrDrink);
+            cmd.Parameters.AddWithValue("@vStrInstructions", bebida.StrInstructions);
+            cmd.Parameters.AddWithValue("@vStrDrinkThumb", bebida.StrDrinkThumb);
             cmd.ExecuteNonQuery();
         }
 
