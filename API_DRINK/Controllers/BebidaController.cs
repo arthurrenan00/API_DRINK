@@ -10,9 +10,9 @@ using API_DRINK.Models;
 namespace API_DRINK.Controllers
 {
     public class BebidaController : ApiController
-    {   //Modifiquei daqui para baixo GM 2508
-        public List<Bebida> bebida = new List<Bebida>();
-        
+    {   //Pega a classe como uma lista 
+        public List<Bebida> bebidas = new List<Bebida>();
+
 
 
 
@@ -29,13 +29,13 @@ namespace API_DRINK.Controllers
         //        var resp = new HttpResponseMessage(HttpStatusCode.NotFound);
         //        throw new HttpResponseException(resp);
         //    }
-        //    return bebida;  
+        //    return bebida;
         //}
 
 
 
         //GET: api/Bebida/getAll
-
+        //Usando o método GET que o ASP oferece para poder selecionar todas as bebidas de uma view (mysql) por uma lista
         [HttpGet]
         [ActionName("getAll")]
         public IEnumerable<Bebida> GetAllBebidas()
@@ -59,20 +59,19 @@ namespace API_DRINK.Controllers
             */
         }
 
-        //Modifiquei acima GM 2508
 
         // POST: api/Bebida
         [HttpPost]
         [ActionName("addItens")]
-        public void Post([FromBody] Bebida itens)
+        public void Post([FromBody] Bebida bebida)
         {
-            if (itens == null)
+            if (bebida == null)
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
             }
 
             DBConnection db = new DBConnection();
-            db.AddBebida(itens);
+            db.AddBebida(bebida);
         }
 
 

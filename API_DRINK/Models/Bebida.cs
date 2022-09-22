@@ -7,7 +7,7 @@ namespace API_DRINK.Models
 {
     public class Bebida
     {
-        //AQUI abaixo adicionado pelo GM 25/08
+        //Classe de molde para que possa receber os dados de Bebida
         public Bebida()
         {
 
