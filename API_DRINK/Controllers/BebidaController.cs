@@ -62,8 +62,8 @@ namespace API_DRINK.Controllers
 
         // POST: api/Bebida
         [HttpPost]
-        [ActionName("addItens")]
-        public void Post([FromBody] Bebida bebida)
+        [ActionName("addItem")]
+        public HttpStatusCode PostBebida([FromBody] Bebida bebida)
         {
             if (bebida == null)
             {
@@ -72,15 +72,15 @@ namespace API_DRINK.Controllers
 
             DBConnection db = new DBConnection();
             db.AddBebida(bebida);
+            return HttpStatusCode.Created;
         }
 
 
         // PUT: api/Livro/5
-        [HttpPut]
+        //[HttpPut]
         [ActionName("updateItem")]
-        public HttpResponseMessage Put(int id, [FromBody] Bebida item)
+        public HttpResponseMessage PutBebida(int id, [FromBody] Bebida item)
         {
-
             if (item == null)
             {
                 return new HttpResponseMessage(HttpStatusCode.NotModified);

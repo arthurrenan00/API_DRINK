@@ -17,7 +17,7 @@ namespace API_DRINK.Controllers
         static string host = "localhost";
         static string database = "db_bebida";
         static string userDB = "root";
-        static string password = "guiguiba";
+        static string password = "12345678";
         public static string strConexao = "server=" + host +
                                             ";Database=" + database +
                                             ";User ID=" + userDB +
