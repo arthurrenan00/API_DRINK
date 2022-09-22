@@ -62,4 +62,6 @@ end;
 $$
 
 call spInsertBebida("Laranja", "Frio", 6, "Suco de laranja", "Esprema a laranja em um copo de 200ml de água", "www.google.com");
+
+update tbBebida set StrDrink="LIMAO", StrInstructions="Amasse :)", StrDrinkThumb="www.google.com" where IdDrink=8;
         

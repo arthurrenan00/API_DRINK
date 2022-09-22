@@ -77,20 +77,20 @@ namespace API_DRINK.Controllers
 
 
         // PUT: api/Livro/5
-        //[HttpPut]
+        [HttpPut]
         [ActionName("updateItem")]
-        public HttpResponseMessage PutBebida(int id, [FromBody] Bebida item)
+        public HttpStatusCode PutBebida(int id, [FromBody] Bebida item)
         {
             if (item == null)
             {
-                return new HttpResponseMessage(HttpStatusCode.NotModified);
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
             }
 
             DBConnection db = new DBConnection();
             db.UpdateBebida(item);
             db.Fechar();
 
-            return new HttpResponseMessage(HttpStatusCode.Accepted);
+            return HttpStatusCode.OK;
         }
 
         //[HttpGet]
@@ -105,13 +105,13 @@ namespace API_DRINK.Controllers
 
         [HttpDelete]
         [ActionName("deleteItem")]
-        public HttpResponseMessage Delete(int idDrink)
+        public HttpStatusCode DeleteBebida(int idDrink)
         {
             DBConnection db = new DBConnection();
             db.DeleteBebida(idDrink);
             db.Fechar();
 
-            return new HttpResponseMessage(HttpStatusCode.OK);
+            return HttpStatusCode.OK;
         }
     }
 }
